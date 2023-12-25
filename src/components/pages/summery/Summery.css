@@ -1,0 +1,17 @@
+.summery {
+  flex: 4;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.container {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 0%;
+  width: 100%;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
