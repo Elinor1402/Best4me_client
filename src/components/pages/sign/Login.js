@@ -37,7 +37,6 @@ export default function LogIn(){
     function handleSubmit(Event) {
      console.log("submit");
        Event.preventDefault();
-        if(companyID !== '' && companyPassword !== ''){
             //edit from axios.post('/log-in') to axios.post('http://localhost:3000/log-in')
             axios.post('http://localhost:3000/log-in', {companyID: companyID, companyPassword: companyPassword}).then(res =>{
             localStorage.setItem('token', res.data.token);
@@ -52,8 +51,7 @@ export default function LogIn(){
             }).catch(err =>{
                 setErrorMessage(err.response.data);
                  console.log(errorMessage);
-            });
-        }  
+            });  
     }
         return (
             <>
