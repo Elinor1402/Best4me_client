@@ -29,12 +29,19 @@ export default function Checking() {
 
     const navigate = useNavigate();
    
+   
+    function handleOccupationChange(e) {
+         console.log(e.target.value);
+        setOccupation(e.target.value);
+
+     }
+
 
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
       };
 
-
+    
     function handleSubmit(Event) {
         Event.preventDefault();
         // if(companyID != '' && companyPassword != ''){
@@ -161,7 +168,7 @@ export default function Checking() {
                         </div>
                         </div>
                         <div className="register-container-child">
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label for="occupation">The organization is local or global : </label>
                             <input type="text"
                                 id="occupation"
@@ -170,6 +177,15 @@ export default function Checking() {
                                value={occupation} 
                                onChange={(e) => setOccupation(e.target.value)}
                                required/>
+                        </div> */}
+                        <div className="form-group">
+                        <label for="occupation">The organization is local or global : </label>
+                        <select class="form-select" aria-label="Default select example" value ={occupation} defaultValue={"Local"} onChange={(e)=>setOccupation(e.target.value)}>
+                        {/* <option selected>Open this select menu</option> */}
+                        <option value="Local" >Local</option>
+                        <option value="Global" >Global</option>
+                        </select  >
+                        
                         </div>
                         <div className="form-group">
                             <label for="location">The organization’s location : </label>
