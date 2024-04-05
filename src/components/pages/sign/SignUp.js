@@ -29,14 +29,6 @@ export default function Checking() {
 
     const navigate = useNavigate();
    
-   
-    function handleOccupationChange(e) {
-         console.log(e.target.value);
-        setOccupation(e.target.value);
-
-     }
-
-
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
       };
@@ -239,13 +231,10 @@ export default function Checking() {
                         </div>
                         <div className="form-group">
                             <label for="organization system used">Organization’s operation system used : </label>
-                            <input type="text" 
-                                id="organization system used"
-                               name="systemUsed" 
-                               placeholder="Organization’s operation system used" 
-                               value={systemUsed} 
-                               onChange={(e) => setSystemUsed(e.target.value)} 
-                               required/>
+                            <select class="form-select" aria-label="Default select example" value ={systemUsed} defaultValue={"Windows"} onChange={(e)=>setSystemUsed(e.target.value)}>
+                            <option value="Windows" >Windows</option>
+                            <option value="Linux" >Linux</option>
+                        </select  >
                         </div>
                         </div>
                     </div>

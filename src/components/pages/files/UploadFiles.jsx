@@ -15,6 +15,7 @@ export default function UploadFiles() {
     function handleSubmit(event) {
       event.preventDefault()
       const url = 'http://localhost:3000/uploadfile';
+      console.log(file);
       const formData = new FormData();
       formData.append('file', file);
       formData.append('fileName', file.name);
@@ -37,10 +38,10 @@ export default function UploadFiles() {
               <Sidebar />
               <div className="summery">
               <div className="uploadContainer">
-                <form>
-                  <input className="custom-file-input" type="file" accept=".xlsx, .xls, .csv" onChange={handleChange}/>
-                  <Button className="buttonStyle" type="submit" variant="contained" color="primary" component="span" onClick={handleSubmit}>
-                      UPLOAD FILE
+                <form onSubmit={handleSubmit}>
+                  <input className="custom-file-input" type="file" accept=".xlsx, .xls, .csv" onChange={handleChange} required/>
+                  <Button type="submit" color="primary" variant="contained">
+                  UPLOAD FILE
                   </Button>
                 </form>
               </div>
