@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UploadFiles from './components/pages/files/UploadFiles';
 import PrivateRoute from "./Redux/PrivateRoute";
 import Topbar from "./components/topbar/TopBarForAdmin";
+import Questionaire from './components/Questions/questionnaire';
 
 function App() {
 
@@ -27,6 +28,8 @@ function App() {
         <Route path='/users' element= {<UserList />} />
         <Route path='/files' element= {<UploadFiles />} />
         <Route path= '/final-signup' element= {<FinalSignUp />} />
+        <Route path='/questionnarie' element= {<Questionaire />} />
+
       </Routes>
     </Router>
    
