@@ -12,19 +12,15 @@ import { useEffect,useRef,useState } from "react";
 import {countryList} from './SignUpLists'
 
 export default function Checking() {
-    const [companyID, setCompanyID] = useState('');
+    
     const [email, setEmail] =useState('');
     const [companyPassword, setCompanyPassword] = useState('');
     const [compName, setCompName] = useState('');
-    const [domain, setDomain] = useState('');
+    const [domain, setDomain] = useState('Health');
     const [establishment, setEstablishment] = useState('');
-    const [occupation, setOccupation] = useState('');
+    const [loc_glob, setLocGlob] = useState('Local');
     const [location, setLocation] = useState('');
-    const [size, setSize] = useState('');
-    const [numOfCeo, setNumOfCeo] = useState('');
-    const [numOfManagers, setNumOfManagers] = useState('');
-    const [numOfEmployees, setNumOfEmployees] = useState('');
-    const [systemUsed, setSystemUsed] = useState('');
+    const [size, setSize] = useState('1-50');
     const [errorMessage, setErrorMessage]= useState("");
     const [passwordShown, setPasswordShown] = useState(false);
 
@@ -37,7 +33,7 @@ export default function Checking() {
     
     function handleSubmit(Event) {
         Event.preventDefault();
-        // if(companyID != '' && companyPassword != ''){
+        console.log("Domain is :",domain);
             if(companyPassword != '')
             {
                 if(companyPassword.length<6)
@@ -58,13 +54,10 @@ export default function Checking() {
                 compName: compName,
                 domain: domain,
                 establishment: establishment,
-                occupation: occupation,
+                loc_glob: loc_glob,
                 location: location,
-                size: size,
-                numOfCeo: numOfCeo,
-                numOfManagers: numOfManagers,
-                numOfEmployees: numOfEmployees,
-                systemUsed: systemUsed})
+                size: size
+                })
               .then(res =>{
                   console.log(res);
                     //if(res.status === 200){
@@ -90,17 +83,6 @@ export default function Checking() {
                 <form onSubmit={handleSubmit}>
                     <div className="form">
                     <div className="register-container-child">
-                        {/* <div className="form-group">
-                            <label for="company id">Company ID : </label>
-                            <input
-                                type="number" 
-                                id="company id"
-                                name="companyID" 
-                                placeholder="Company id" 
-                                value={companyID}
-                                onChange={(e) => setCompanyID(e.target.value)}
-                                required/>
-                        </div> */}
                         <div className="form-group">
                             <label for="email">Email</label>
                             <input
@@ -141,17 +123,8 @@ export default function Checking() {
                         </div>
                         <div className="form-group">
                             <label for="organization domain">Organization's domain</label>
-                            {/* <input type="text" 
-                               id="organization domain"
-                               name="domain" 
-                               placeholder="Organization's domain"
-                               value={domain} 
-                               onChange={(e) => setDomain(e.target.value)}
-                               required/> */}
-                                <select class="form-select" aria-label="Default select example" value ={domain} defaultValue={"Health"} onChange={(e)=>setDomain(e.target.value)}>
-                                {/* <option selected>Open this select menu</option> */}
+                                <select class="form-select" aria-label="Default select example" value ={domain} onChange={(e)=>setDomain(e.target.value)}>
                                 <option value="Health" >Health</option>
-                                <option value="Industry" >Industry</option>
                                 <option value="Economy" >Economy</option>
                                 <option value="High tech" >High tech</option>
                                 <option value="Transport" >Transport</option>
@@ -171,21 +144,9 @@ export default function Checking() {
                         </div>
                         </div>
                         <div className="register-container-child">
-                        {/* <div className="form-group">
-                            <label for="occupation">The organization is local or global : </label>
-                            <input type="text"
-                                id="occupation"
-                               name="occupation" 
-                               placeholder="Local or Global" 
-                               value={occupation} 
-                               onChange={(e) => setOccupation(e.target.value)}
-                               required/>
-                        </div> */}
                         <div className="form-group">
-                        <label for="occupation">The organization is local or global</label>
-                        <select class="form-select" aria-label="Default select example" value ={occupation} defaultValue={"Local"} onChange={(e)=>setOccupation(e.target.value)}>
-                        {/* <option selected>Open this select menu</option> */}
-                
+                        <label for="loc_glob">The organization is local or global</label>
+                        <select class="form-select" aria-label="Default select example" value ={loc_glob} onChange={(e)=>setLocGlob(e.target.value)}>
                         <option value="Local" >Local</option>
                         <option value="Global" >Global</option>
                         </select  >
@@ -203,7 +164,7 @@ export default function Checking() {
                         </div>
                         <div className="form-group">
                             <label for="organization size">Organization’s size</label>
-                            <select class="form-select" aria-label="Default select example" value ={size} defaultValue={"Windows"} onChange={(e)=>setSize(e.target.value)}>
+                            <select class="form-select" aria-label="Default select example" value ={size}  onChange={(e)=>setSize(e.target.value)}>
                             <option value="1-50">1-50</option>
                             <option value="51-200" >51-200</option>
                             <option value="200-500" >200-500</option>
@@ -212,46 +173,7 @@ export default function Checking() {
                         </select  >
 
                         </div>
-                        {/* not relevant maybe in the futher */}
-
-                        {/* <div className="form-group">
-                            <label for="num of ceo">Number of Deputy CEOs</label>
-                            <input type="number" 
-                                id= "num of ceo"
-                               name="numOfCeo" 
-                               placeholder="Number Deputy CEOs" 
-                               value={numOfCeo} 
-                               onChange={(e) => setNumOfCeo(e.target.value)} 
-                               required min="1"/>
-                        </div>
-                        <div className="form-group">
-                            <label for="amount of managers">Amount of managers</label>
-                            <input type="number"
-                                id="amount of managers"
-                               name="numOfManagers"
-                               placeholder="Amount of department heads&team leaders" 
-                               value={numOfManagers} 
-                               onChange={(e) => setNumOfManagers(e.target.value)} 
-                               required min="1" />
-                        </div>
-                        <div className="form-group">
-                            <label for="Amount of employees">Amount of regular employees</label>
-                            <input type="number" 
-                                id="Amount of employees"
-                               name="numOfEmployees" 
-                               placeholder="Amount of regular employees" 
-                               value={numOfEmployees} 
-                               onChange={(e) => setNumOfEmployees(e.target.value)} 
-                               required min="1"/> */}
-                        {/* </div> */}
-                        {/* <div className="form-group">
-                            <label for="organization system used">Organization’s operation system used</label>
-                            <select class="form-select" aria-label="Default select example" value ={systemUsed} defaultValue={"Windows"} onChange={(e)=>setSystemUsed(e.target.value)}>
-                            <option value="Windows" >Windows</option>
-                            <option value="Linux" >Linux</option>
-                            <option value="macOS" >macOS</option>
-                        </select  >
-                        </div> */}
+                    
                         </div>
                     </div>
                     <div className="btn" >
