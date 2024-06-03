@@ -24,8 +24,69 @@ export default function Checking() {
     const [errorMessage, setErrorMessage]= useState("");
     const [passwordShown, setPasswordShown] = useState(false);
 
+    const [questions, setQuestions] = useState([]);
+    const [answers, setAnswers] = useState({});
     const navigate = useNavigate();
    
+    const getFirstQuestions = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/first-question');
+            const data = response.data;
+            setQuestions(data);
+        } catch (error) {
+            console.error('Error fetching questions:', error);
+        }
+    };
+
+    const  fetchQuestionData=  (questionData) => {
+    
+        if(questionData.answerType ===1)
+        {
+            return ( 
+           <>
+            <label for={questionData.question}>{questionData.question} </label>
+            <input type="Text"
+            name={questionData.question}
+            placeholder={questionData.questio}
+            // value={companyID}
+           onChange={(e) => setCompanyID(e.target.value)}
+            required/>
+            </>
+            )
+        }
+        else if(questionData.answer_type ===2)
+        {
+            return ( 
+                <>
+                <label for={questionData.question}>{questionData.question}</label>
+                <select class="form-select" aria-label="Default select example" value ={systemUsed}  onChange={(e)=>setSystemUsed(e.target.value)}>
+               {questionData.answers.map((answer, index) => {
+                return(
+                    <option value={answer} >{answer}</option>
+                )
+                
+               })}  
+                </select  > 
+                 </>
+                 )
+        
+        
+        }
+       
+    }
+
+    useEffect(() => {
+        // Fetch questions and answers when component mounts
+        getFirstQuestions();
+    }, []);
+
+    useEffect(() => {
+        // This will run whenever the `questions` state updates
+        console.log('Questions', questions);
+    }, [questions]);
+
+
+
     const togglePasswordVisiblity = () => {
         setPasswordShown(passwordShown ? false : true);
       };
@@ -59,7 +120,7 @@ export default function Checking() {
                 size: size
                 })
               .then(res =>{
-                  console.log(res);
+                 // console.log(res);
                     //if(res.status === 200){
                        // window.alert(res.data.message);
                         localStorage.setItem('CompanyID',res.data.message);
@@ -155,7 +216,7 @@ export default function Checking() {
                         <div className="form-group">
                         <label htmlFor="location">Branch location</label>
                         <select className="form-select" aria-label="Default select example" value={location} onChange={(e) => setLocation(e.target.value)}>
-                        {console.log("countries", countryList)}
+                        {/* //{console.log("countries", countryList)} */}
                         {countryList.map(element => (
                             <option key={element} value={element}>{element}</option>
                         ))}
