@@ -37,6 +37,7 @@
     /* display: flex;
     flex-direction: column;
     align-items: center; */
+    align-items: center;
     flex-direction: row;
     border: 3px solid #fff;
     padding: 20px;
@@ -44,9 +45,13 @@
     /* float: left; */
     /* justify-content: center; */
   }
+  .register-container-form{
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
 
   .register-container-child {
-    width: 50%;
+    width:100vw;
     /* display: flex; */
     /* float: left; */
 
@@ -69,6 +74,8 @@
   }
   .form-group {
     margin-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     display: flex;
 }
   .form::form-group {

@@ -12,6 +12,8 @@ import UploadFiles from './components/pages/files/UploadFiles';
 import PrivateRoute from "./Redux/PrivateRoute";
 import Topbar from "./components/topbar/TopBarForAdmin";
 import Questionaire from './components/Questions/questionnaire';
+import HealthForm from './components/pages/forms/HealthForm';
+import HiTechForm from './components/pages/forms/HiTechForm';
 
 function App() {
 
@@ -29,7 +31,8 @@ function App() {
         <Route path='/files' element= {<UploadFiles />} />
         <Route path= '/final-signup' element= {<FinalSignUp />} />
         <Route path='/questionnarie' element= {<Questionaire />} />
-
+        <Route path='/Health' element= {<HealthForm />} />
+        <Route path='/HiTech' element= {<HiTechForm />} />
       </Routes>
     </Router>
    
