@@ -4,6 +4,7 @@ import './App.css';
 import Home from './components/pages/home/Home';
 import SignUp from './components/pages/sign/SignUp';
 import Login from './components/pages/sign/Login';
+import LoginUser from './components/pages/sign/LoginUser';
 import FinalSignUp from './components/pages/sign/FinalSignUp';
 import Summery from './components/pages/summery/Summery';
 import UserList from './components/pages/users/Users';
@@ -14,6 +15,8 @@ import Topbar from "./components/topbar/TopBarForAdmin";
 import Questionaire from './components/Questions/questionnaire';
 import HealthForm from './components/pages/forms/HealthForm';
 import HiTechForm from './components/pages/forms/HiTechForm';
+import PersonalForm from './components/pages/forms/PersonalForm';
+
 
 function App() {
 
@@ -33,6 +36,8 @@ function App() {
         <Route path='/questionnarie' element= {<Questionaire />} />
         <Route path='/Health' element= {<HealthForm />} />
         <Route path='/HiTech' element= {<HiTechForm />} />
+        <Route path='/user-log-in' element= {<LoginUser/>} />
+        <Route path='/Personal' element= {<PersonalForm/>} />
       </Routes>
     </Router>
    

@@ -9,10 +9,11 @@ import Navbar from "../../navbar/Navbar";
 import { useNavigate  } from 'react-router-dom';
 import { FaEye, FaEyeSlash} from 'react-icons/fa';
 import { useEffect,useRef,useState } from "react";
+import { useLocation } from 'react-router-dom';
 
-
-
-export default function HiTech() {
+export default function Personal() {
+    const location = useLocation();
+    const previousData = location.state.formData;
 
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
@@ -93,12 +94,15 @@ export default function HiTech() {
 
     useEffect(() => {
         // Fetch questions and answers when component mounts
-        getHealthQuestions();
+        getPersonalQuestions();
     }, []);
 
-    const getHealthQuestions = async () => {
+    const getPersonalQuestions = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/second-questions?answerID=3');
+            const result = await axios.get(`http://localhost:3000/translate-answers?answer=${previousData.Role}`);
+            console.log("The ID of manager in front",result);
+            const response = await axios.get(`http://localhost:3000/second-questions?answerID=${result.data}`);
+          
             const data = response.data;
             console.log("Questions", data);
             setQuestions(data);
@@ -126,41 +130,40 @@ export default function HiTech() {
   
         navigate('/Personal', { state: { formData } });
     };
-    
-             
+
     return (
         <>
- <Navbar />
-            <div className="register-container" >
-                <h1 className="sign-up">Hi-tech Form</h1>
-                {/* {errorMessage && <div className="error">{errorMessage}</div>}  */}
-                <form onSubmit={handleSubmit}>
-                    <div className="form">
-                    <div className="register-container-child">
-                   
-                    {questions.length > 0 && (
-                    <div className="register-container-form">
-                    {questions.map((questionData, index) => { // Skip the first column and its header
-                        return (         
-                        <div key={index} className="form-group">
-                            {fetchQuestionData(questionData)}
-                        </div>
-                        );
-                    })}
-                    </div>
-                )}
+        <Navbar />
+                   <div className="register-container" >
+                       <h1 className="sign-up">Personal Form</h1>
+                       {/* {errorMessage && <div className="error">{errorMessage}</div>}  */}
+                       <form onSubmit={handleSubmit}>
+                           <div className="form">
+                           <div className="register-container-child">
+                          
+                           {questions.length > 0 && (
+                           <div className="register-container-form">
+                           {questions.map((questionData, index) => { // Skip the first column and its header
+                               return (         
+                               <div key={index} className="form-group">
+                                   {fetchQuestionData(questionData)}
+                               </div>
+                               );
+                           })}
+                           </div>
+                       )}
+                              
+                               </div>
+       
+                           </div>
+                           <div className="btn" >
+                           <Button type="submit" endIcon={<SendIcon />} color="primary" variant="contained">
+                                     Submit
+                                   </Button>
+                           </div>
+                       </form>
                        
-                        </div>
-
-                    </div>
-                    <div className="btn" >
-                    <Button type="submit" endIcon={<SendIcon />} color="primary" variant="contained">
-                              Submit
-                            </Button>
-                    </div>
-                </form>
-                
-            </div>
-        </>
+                   </div>
+               </>
     )
 }

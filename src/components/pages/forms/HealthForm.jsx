@@ -97,7 +97,7 @@ export default function HealthForm() {
 
     const getHealthQuestions = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/health-questions?companyID=0');
+            const response = await axios.get('http://localhost:3000/second-questions?answerID=0');
             const data = response.data;
             console.log("Questions", data);
             setQuestions(data);
@@ -122,32 +122,9 @@ export default function HealthForm() {
     function handleSubmit(Event) {
         Event.preventDefault();
         console.log("formData", formData);
-    //    // console.log("Domain is :",domain);
-    //         if(formData["Password"] != '')
-    //         {
-    //             if(formData["Password"].length<6)
-    //                 setErrorMessage("Password must be at least 6 characters long");
-
-    //             else
-    //             {
-    //                 // var hashedPass;
-    //                 // hashedPass = bcrypt.hashSync(formData["Password"],5, (err,hash)=>{
-    //                 //     if(!err){
-    //                 //     hashedPass = hash;
-    //                 //     formData["Password"]=  hashedPass;
-    //                 //     }
-    //                 // });
-    //                 console.log("new form data", formData);
-    //                 axios.post('http://localhost:3000/sign-up', {formData :formData})
-    //                 .then(res =>{
-    //                         localStorage.setItem('CompanyID',res.data.message);
-    //                         navigate("/final-signup");
-    //                 })
-    //             .catch(err =>{
-    //                     setErrorMessage(err.response.data);
-    //             });
-    //             }
-    //         }
+        
+        navigate('/Personal', { state: { formData } });
+ 
         }  
 
 
