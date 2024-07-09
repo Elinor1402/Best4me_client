@@ -66,8 +66,13 @@ export default function UserList() {
   }
 
   const fetchUserData = () => {
+    const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3000/csvData")
+      .get("http://localhost:3000/csvData", {
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((response) => {
         var compID = localStorage.getItem("CompanyID");
         const parsedCsvData = parseCSV(response.data);
