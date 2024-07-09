@@ -3,6 +3,7 @@ import '../../../App.css';
 import '../sign/SignUp.css'
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
+import SaveIcon from '@mui/icons-material/Save';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
 import Navbar from "../../navbar/Navbar";
@@ -154,10 +155,15 @@ export default function HealthForm() {
 
                     </div>
                     <div className="btn" >
-                    <Button type="submit" endIcon={<SendIcon />} color="primary" variant="contained">
-                              Sign Up
+                    <Button endIcon={<SaveIcon />} color="primary" variant="contained">
+                              Save Answers
                             </Button>
-                    </div>
+                   
+                   
+                    <Button type="submit" endIcon={<SendIcon />} color="primary" variant="contained">
+                              Submit
+                            </Button>
+                  </div>
                 </form>
                 
             </div>
