@@ -1,16 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./UploadFiles.css";
 import Sidebar from "../../sidebar/SideBarForAdmin";
 import Topbar from "../../topbar/TopBarForAdmin";
 import Button from "@material-ui/core/Button";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function UploadFiles() {
   const [file, setFile] = useState();
+  const navigate = useNavigate();
 
   function handleChange(event) {
     setFile(event.target.files[0]);
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    axios
+      .get("http://localhost:3000/admin", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        console.log("get admin");
+      })
+      .catch((err) => {
+        console.log("errrrrrrr");
+
+        navigate("/log-in");
+      });
+
+    // cleanup this component
+  }, [navigate]);
 
   function handleSubmit(event) {
     event.preventDefault();

@@ -66,10 +66,8 @@ export default function UserList() {
   }
 
   const fetchUserData = () => {
-    const csvUrl =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vRi5yiyL7OjyVehkofqLeKfN2XhY8KbTxaSsQ7_HVSLHeM6uUh7oHMPjmaMD62QrdsC8bGCip3tV9YD/pub?output=csv"; // Replace with your Google Sheets CSV file URL
     axios
-      .get(csvUrl)
+      .get("http://localhost:3000/csvData")
       .then((response) => {
         var compID = localStorage.getItem("CompanyID");
         const parsedCsvData = parseCSV(response.data);
