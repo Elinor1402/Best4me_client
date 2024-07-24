@@ -81,28 +81,36 @@ export default function HiTech() {
 
   useEffect(() => {
     // Fetch questions and answers when component mounts
-    getHealthQuestions();
+    getHiTechQuestions();
+    console.log("initialFormData", formData);
   }, []);
 
-  const getHealthQuestions = async () => {
+  const getHiTechQuestions = async () => {
     try {
+      const answerID = 3;
+      const userID = localStorage.getItem("userID");
       const response = await axios.get(
-        "http://localhost:3000/second-questions?answerID=3"
+        `http://localhost:3000/second-questions?answerID=${answerID}&userID=${userID}`
       );
       const data = response.data;
       console.log("Questions", data);
       setQuestions(data);
 
-      // Initialize formData with default values
-      const initialFormData = {};
-      data.forEach((question) => {
-        if (question.answerType === 2) {
-          initialFormData[question.question] =
-            question.answers[0]?.answer || "";
-        }
-      });
+      const response2 = await axios.get(
+        `http://localhost:3000/users-answers?userID=${userID}`
+      );
+      setFormData(response2.data);
 
-      setFormData(initialFormData);
+      // // Initialize formData with default values
+      // const initialFormData = {};
+      // data.forEach((question) => {
+      //   if (question.answerType === 2) {
+      //     initialFormData[question.question] =
+      //       question.answers[0]?.answer || "";
+      //   }
+      // });
+      // setFormData(initialFormData);
+
       console.log("Form data", formData);
     } catch (error) {
       console.error("Error fetching questions:", error);
@@ -115,6 +123,22 @@ export default function HiTech() {
 
     navigate("/Personal", { state: { formData } });
   }
+
+  const saveHiTechQuestions = async () => {
+    console.log("FormData,", formData);
+    const userID = localStorage.getItem("userID");
+    try {
+      const response = await axios.post("http://localhost:3000/save-answers", {
+        formData: formData,
+        userID: userID,
+      });
+      // const data = response.data;
+      // console.log("Questions", data);
+      // setQuestions(data);
+    } catch (error) {
+      console.error("Error fetching questions:", error);
+    }
+  };
 
   return (
     <>
@@ -140,7 +164,12 @@ export default function HiTech() {
             </div>
           </div>
           <div className="btn">
-            <Button endIcon={<SaveIcon />} color="primary" variant="contained">
+            <Button
+              endIcon={<SaveIcon />}
+              color="primary"
+              variant="contained"
+              onClick={saveHiTechQuestions}
+            >
               Save Answers
             </Button>
 

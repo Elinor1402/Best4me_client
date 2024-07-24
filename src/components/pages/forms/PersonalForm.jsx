@@ -89,13 +89,14 @@ export default function Personal() {
   }, []);
 
   const getPersonalQuestions = async () => {
+    const userID = localStorage.getItem("userID");
     try {
       const result = await axios.get(
         `http://localhost:3000/translate-answers?answer=${previousData.Role}`
       );
       console.log("The ID of manager in front", result);
       const response = await axios.get(
-        `http://localhost:3000/second-questions?answerID=${result.data}`
+        `http://localhost:3000/second-questions?answerID=${result.data}&userID=${userID}`
       );
 
       const data = response.data;
