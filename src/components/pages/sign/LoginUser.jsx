@@ -42,16 +42,16 @@ export default function LogInUser() {
         localStorage.setItem("token", res.data.token);
 
         localStorage.setItem("userID", userID);
-        // dispatch(loginAction());
+        dispatch(loginAction());
+        console.log("general info", res.data.message);
+        const infoForm = res.data.message;
+        navigate("/generalform", { state: { infoForm } });
 
-        // //if(res.status === 200){
-        //     console.log("try go to admin");
-        //     navigate("/admin", {userID: userID}); // passing company id to admin page
-        if (res.data.message === "Health") {
-          navigate("/Health");
-        } else if (res.data.message === "High tech") {
-          navigate("/HiTech");
-        }
+        // if (res.data.message === "Health") {
+        //   navigate("/Health");
+        // } else if (res.data.message === "High tech") {
+        //   navigate("/HiTech");
+        // }
       })
       .catch((err) => {
         setErrorMessage(err.response.data);

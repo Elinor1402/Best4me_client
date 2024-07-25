@@ -8,19 +8,16 @@ import ClientTopbar from "../../topbar/TopBarForClient";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import Navbar from "../../navbar/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
 
-export default function Personal() {
-  const location = useLocation();
-  const previousData = location.state.formData;
-
+export default function GeneralForm() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -86,53 +83,51 @@ export default function Personal() {
 
   useEffect(() => {
     // Fetch questions and answers when component mounts
-    getPersonalQuestions();
+    getHiTechQuestions();
   }, []);
 
-  const getPersonalQuestions = async () => {
-    const userID = localStorage.getItem("userID");
-    const token = localStorage.getItem("token");
-
+  const getHiTechQuestions = async () => {
     try {
-      const result = await axios.get(
-        `http://localhost:3000/translate-answers`,
-        {
-          params: {
-            answer: previousData.Role,
-          },
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      console.log("The ID of manager in front", result);
+      const infoForm = location.state.infoForm;
+      const answerID = infoForm.answerID;
+      const userID = localStorage.getItem("userID");
+      const token = localStorage.getItem("token");
       const response = await axios.get(
         `http://localhost:3000/second-questions`,
         {
           params: {
-            answerID: result.data, // Assuming result.data is the ID you need
-            userID: userID,
+            answerID,
+            userID,
           },
           headers: {
             Authorization: token,
           },
         }
       );
-
       const data = response.data;
       console.log("Questions", data);
       setQuestions(data);
 
-      // Initialize formData with default values
-      const initialFormData = {};
-      data.forEach((question) => {
-        if (question.answerType === 2) {
-          initialFormData[question.question] =
-            question.answers[0]?.answer || "";
-        }
+      const response2 = await axios.get(`http://localhost:3000/users-answers`, {
+        params: {
+          userID,
+        },
+        headers: {
+          Authorization: token,
+        },
       });
+      setFormData(response2.data);
 
-      setFormData(initialFormData);
+      // // Initialize formData with default values
+      // const initialFormData = {};
+      // data.forEach((question) => {
+      //   if (question.answerType === 2) {
+      //     initialFormData[question.question] =
+      //       question.answers[0]?.answer || "";
+      //   }
+      // });
+      // setFormData(initialFormData);
+
       console.log("Form data", formData);
     } catch (error) {
       console.error("Error fetching questions:", error);
@@ -147,11 +142,39 @@ export default function Personal() {
     navigate("/Personal", { state: { formData } });
   }
 
+  const saveHiTechQuestions = async () => {
+    console.log("FormData,", formData);
+    const userID = localStorage.getItem("userID");
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/save-answers",
+        {
+          formData: formData, // Data to be sent in the request body
+          userID: userID,
+        },
+        {
+          headers: {
+            Authorization: token, // Authorization header should include 'Bearer'
+          },
+        }
+      );
+      // const data = response.data;
+      // console.log("Questions", data);
+      // setQuestions(data);
+    } catch (error) {
+      navigate("/user-log-in");
+      console.error("Error fetching questions:", error);
+    }
+  };
+
   return (
     <>
       <ClientTopbar />
       <div className="register-container">
-        <h1 className="sign-up">Personal Form</h1>
+        <h1 className="sign-up">
+          {location.state ? location.state.infoForm.od : ""} Form
+        </h1>
         {/* {errorMessage && <div className="error">{errorMessage}</div>}  */}
         <form onSubmit={handleSubmit}>
           <div className="form">
@@ -171,7 +194,12 @@ export default function Personal() {
             </div>
           </div>
           <div className="btn">
-            <Button endIcon={<SaveIcon />} color="primary" variant="contained">
+            <Button
+              endIcon={<SaveIcon />}
+              color="primary"
+              variant="contained"
+              onClick={saveHiTechQuestions}
+            >
               Save Answers
             </Button>
 
@@ -181,7 +209,7 @@ export default function Personal() {
               color="primary"
               variant="contained"
             >
-              Submit
+              Continue
             </Button>
           </div>
         </form>
