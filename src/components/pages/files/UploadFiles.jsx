@@ -17,7 +17,7 @@ export default function UploadFiles() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:3000/admin", {
+      .get("http://localhost:3000/files", {
         headers: {
           Authorization: token,
         },
@@ -32,7 +32,7 @@ export default function UploadFiles() {
       });
 
     // cleanup this component
-  }, [navigate]);
+  }, [file]);
 
   function handleSubmit(event) {
     event.preventDefault();
