@@ -9,7 +9,7 @@ import Navbar from "../../navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 //import {} from "../../../Reducers/usersReducers';
 import { useEffect, useRef, useState } from "react";
-import { loginAction } from "../../../Redux/usersActions";
+import { loginAction, logoutAction } from "../../../Redux/usersActions";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,7 +27,10 @@ export default function LogIn() {
     setPasswordShown(passwordShown ? false : true);
   };
 
-  useEffect(() => {}, [isLogged]);
+  useEffect(() => {
+    //if you add this line when you reach login page you will disconnevt from all users.(optional)
+    dispatch(logoutAction());
+  }, []);
 
   function handleSubmit(Event) {
     console.log("submit");
@@ -39,13 +42,12 @@ export default function LogIn() {
         companyPassword: companyPassword,
       })
       .then((res) => {
-        localStorage.setItem("token", res.data.token);
+        const userID = localStorage.getItem("userID");
+        if (userID) localStorage.removeItem("userID");
 
+        localStorage.setItem("token", res.data.token);
         localStorage.setItem("CompanyID", companyID);
         dispatch(loginAction());
-
-        //if(res.status === 200){
-        console.log("try go to admin");
         navigate("/admin", { state: { initialToken: res.data.token } }); // passing token to admin page
       })
       .catch((err) => {

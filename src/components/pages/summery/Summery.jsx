@@ -2,10 +2,11 @@ import React from "react";
 import Charts from "../../chart/Chart";
 import DataCSV from "../../chart/DataCSV";
 import Sidebar from "../../sidebar/SideBarForAdmin";
-import Topbar from "../../topbar/TopBarForAdmin";
+import Topbar from "../../topbar/TopBar";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { loginAction, logoutAction } from "../../../Redux/usersActions";
 import axios from "axios";
 import "./Summery.css";
 
@@ -53,7 +54,6 @@ export default function Home() {
       })
       .catch((err) => {
         console.log("errrrrrrr");
-
         navigate("/log-in");
       });
 

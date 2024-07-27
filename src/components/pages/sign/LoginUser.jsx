@@ -9,7 +9,7 @@ import Navbar from "../../navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 //import {} from "../../../Reducers/usersReducers';
 import { useEffect, useRef, useState } from "react";
-import { loginAction } from "../../../Redux/usersActions";
+import { loginAction, logoutAction } from "../../../Redux/usersActions";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,7 +27,10 @@ export default function LogInUser() {
     setPasswordShown(passwordShown ? false : true);
   };
 
-  useEffect(() => {}, [isLogged]);
+  useEffect(() => {
+    //if you add this line when you reach userlogin page you will disconnevt from all users.(optional)
+    dispatch(logoutAction());
+  }, []);
 
   function handleSubmit(Event) {
     console.log("submit");
@@ -39,8 +42,9 @@ export default function LogInUser() {
         userPassword: userPassword,
       })
       .then((res) => {
+        const compID = localStorage.getItem("CompanyID");
+        if (compID) localStorage.removeItem("CompanyID");
         localStorage.setItem("token", res.data.token);
-
         localStorage.setItem("userID", userID);
         dispatch(loginAction());
         console.log("general info", res.data.message);

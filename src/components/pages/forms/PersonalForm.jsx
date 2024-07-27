@@ -4,7 +4,7 @@ import "../sign/SignUp.css";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import SaveIcon from "@mui/icons-material/Save";
-import ClientTopbar from "../../topbar/TopBarForClient";
+import ClientTopbar from "../../topbar/TopBar";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import Navbar from "../../navbar/Navbar";

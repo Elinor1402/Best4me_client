@@ -4,7 +4,7 @@ import "../sign/SignUp.css";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import SaveIcon from "@mui/icons-material/Save";
-import ClientTopbar from "../../topbar/TopBarForClient";
+import Topbar from "../../topbar/TopBar";
 import axios from "axios";
 import bcrypt from "bcryptjs";
 import Navbar from "../../navbar/Navbar";
@@ -170,7 +170,7 @@ export default function GeneralForm() {
 
   return (
     <>
-      <ClientTopbar />
+      <Topbar />
       <div className="register-container">
         <h1 className="sign-up">
           {location.state ? location.state.infoForm.od : ""} Form

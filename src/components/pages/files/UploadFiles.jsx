@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./UploadFiles.css";
 import Sidebar from "../../sidebar/SideBarForAdmin";
-import Topbar from "../../topbar/TopBarForAdmin";
+import Topbar from "../../topbar/TopBar";
 import Button from "@material-ui/core/Button";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
