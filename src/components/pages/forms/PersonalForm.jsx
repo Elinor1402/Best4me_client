@@ -6,19 +6,14 @@ import SendIcon from "@material-ui/icons/Send";
 import SaveIcon from "@mui/icons-material/Save";
 import ClientTopbar from "../../topbar/TopBar";
 import axios from "axios";
-import bcrypt from "bcryptjs";
-import Navbar from "../../navbar/Navbar";
 import { useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+//Form the client gets after filling the previos form called General Form.
 export default function Personal() {
   const location = useLocation();
-  const previousData = location.state.formData;
-
   const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState({});
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
 
@@ -35,19 +30,12 @@ export default function Personal() {
       let typeQ = "text";
       if (questionData.question === "Email") {
         typeQ = "email";
-      }
-      // else if (questionData.question === "Password") {
-      //     typeQ = passwordShown ? "text" : "password";
-      // }
-      else if (questionData.question === "Year of establishment") {
+      } else if (questionData.question === "Year of establishment") {
         typeQ = "number";
       }
       return (
         <>
-          <label htmlFor={questionData.id}>
-            {questionData.question}
-            {/* {questionData.question === "Password" ?   <i onClick={togglePasswordVisiblity}>{passwordShown ?  <FaEye/>:<FaEyeSlash/>}</i>: ""} */}
-          </label>
+          <label htmlFor={questionData.id}>{questionData.question}</label>
 
           <input
             type={typeQ}
@@ -60,7 +48,6 @@ export default function Personal() {
         </>
       );
     } else if (questionData.answerType === 2) {
-      // setFormData({ [questionData.question]: questionData.answers[0]});
       return (
         <>
           <label htmlFor={questionData.id}>{questionData.question}</label>
@@ -70,7 +57,6 @@ export default function Personal() {
             id={questionData.id}
             name={questionData.question}
             value={formData[questionData.question] || ""}
-            // defaultValue={questionData.answers[0]}
             onChange={handleInputChange}
           >
             {questionData.answers.map((answer, index) => (
@@ -90,10 +76,10 @@ export default function Personal() {
   }, []);
 
   const getPersonalQuestions = async () => {
-    const userID = localStorage.getItem("userID");
-    const token = localStorage.getItem("token");
-
     try {
+      const previousData = location.state.formData;
+      const userID = localStorage.getItem("userID");
+      const token = localStorage.getItem("token");
       const result = await axios.get(
         `http://localhost:3000/translate-answers`,
         {
@@ -105,7 +91,6 @@ export default function Personal() {
           },
         }
       );
-      console.log("The ID of manager in front", result);
       const response = await axios.get(
         `http://localhost:3000/second-questions`,
         {
@@ -120,7 +105,6 @@ export default function Personal() {
       );
 
       const data = response.data;
-      console.log("Questions", data);
       setQuestions(data);
 
       // Initialize formData with default values
@@ -152,7 +136,6 @@ export default function Personal() {
       <ClientTopbar />
       <div className="register-container">
         <h1 className="sign-up">Personal Form</h1>
-        {/* {errorMessage && <div className="error">{errorMessage}</div>}  */}
         <form onSubmit={handleSubmit}>
           <div className="form">
             <div className="register-container-child">

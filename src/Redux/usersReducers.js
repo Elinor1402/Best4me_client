@@ -19,8 +19,6 @@ const LoginReducer = (state = initState, action) => {
     default:
       break;
   }
-
-  console.log("Users Reducers", state);
   return state;
 };
 

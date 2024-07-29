@@ -55,7 +55,7 @@
 
 /* Form styles */
 .form {
-  margin-top: 6em;
+  margin-top: 1.5em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -80,7 +80,8 @@ label {
   margin-bottom: 10px;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   font-family: "Open Sans", sans-serif;
   background-color: #fff;
@@ -135,36 +136,44 @@ i {
 /* Media queries for responsiveness */
 @media (max-width: 768px) {
   .register-container-form {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 
   .form {
-      margin-top: 2em;
+    margin-top: 2em;
   }
 
   label {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
-  input, select {
-      font-size: 1.5rem;
+  input,
+  select {
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .sign-up {
-      font-size: 2rem;
+    font-size: 2rem;
   }
 
   .register-container {
-      padding: 10px;
+    padding: 10px;
   }
 
   label {
-      font-size: 1.25rem;
+    font-size: 1.25rem;
   }
 
-  input, select {
-      font-size: 1.25rem;
+  input,
+  select {
+    font-size: 1.25rem;
   }
+}
+.css-1pxa9xg-MuiAlert-message {
+  font-size: 2rem;
+}
+.css-wnkddu-MuiPaper-root-MuiAlert-root {
+  margin-top: 6rem;
 }

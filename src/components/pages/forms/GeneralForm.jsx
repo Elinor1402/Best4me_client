@@ -4,18 +4,19 @@ import "../sign/SignUp.css";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 import SaveIcon from "@mui/icons-material/Save";
+import Alert from "@mui/material/Alert";
 import Topbar from "../../topbar/TopBar";
 import axios from "axios";
-import bcrypt from "bcryptjs";
-import Navbar from "../../navbar/Navbar";
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
+//Form the client gets after log in.
 export default function GeneralForm() {
+  //Contain array, each cell represents a "question" in the forms , "answerType" and "answers" to this question.
   const [questions, setQuestions] = useState([]);
-  const [answers, setAnswers] = useState({});
+  //An object which represents the client form data- all questions and what he answer, key:value pairs of questions and answer.
   const [formData, setFormData] = useState({});
+  const [isSaved, setIsSaved] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,24 +28,18 @@ export default function GeneralForm() {
     }));
   };
 
+  //style the fields of the answers of the questions we get from database.
   const fetchQuestionData = (questionData) => {
     if (questionData.answerType === 1) {
       let typeQ = "text";
       if (questionData.question === "Email") {
         typeQ = "email";
-      }
-      // else if (questionData.question === "Password") {
-      //     typeQ = passwordShown ? "text" : "password";
-      // }
-      else if (questionData.question === "Year of establishment") {
+      } else if (questionData.question === "Year of establishment") {
         typeQ = "number";
       }
       return (
         <>
-          <label htmlFor={questionData.id}>
-            {questionData.question}
-            {/* {questionData.question === "Password" ?   <i onClick={togglePasswordVisiblity}>{passwordShown ?  <FaEye/>:<FaEyeSlash/>}</i>: ""} */}
-          </label>
+          <label htmlFor={questionData.id}>{questionData.question}</label>
 
           <input
             type={typeQ}
@@ -57,7 +52,6 @@ export default function GeneralForm() {
         </>
       );
     } else if (questionData.answerType === 2) {
-      // setFormData({ [questionData.question]: questionData.answers[0]});
       return (
         <>
           <label htmlFor={questionData.id}>{questionData.question}</label>
@@ -67,7 +61,6 @@ export default function GeneralForm() {
             id={questionData.id}
             name={questionData.question}
             value={formData[questionData.question] || ""}
-            // defaultValue={questionData.answers[0]}
             onChange={handleInputChange}
           >
             {questionData.answers.map((answer, index) => (
@@ -82,11 +75,11 @@ export default function GeneralForm() {
   };
 
   useEffect(() => {
-    // Fetch questions and answers when component mounts
-    getHiTechQuestions();
+    // Fetch questions and answers use the company Organizations domain ,when component mounts
+    getGeneralQuestions();
   }, []);
 
-  const getHiTechQuestions = async () => {
+  const getGeneralQuestions = async () => {
     try {
       const infoForm = location.state.infoForm;
       const answerID = infoForm.answerID;
@@ -105,9 +98,8 @@ export default function GeneralForm() {
         }
       );
       const data = response.data;
-      console.log("Questions", data);
       setQuestions(data);
-
+      //get users answers
       const response2 = await axios.get(`http://localhost:3000/users-answers`, {
         params: {
           userID,
@@ -142,7 +134,7 @@ export default function GeneralForm() {
     navigate("/Personal", { state: { formData } });
   }
 
-  const saveHiTechQuestions = async () => {
+  const saveGeneralQuestions = async () => {
     console.log("FormData,", formData);
     const userID = localStorage.getItem("userID");
     const token = localStorage.getItem("token");
@@ -159,9 +151,7 @@ export default function GeneralForm() {
           },
         }
       );
-      // const data = response.data;
-      // console.log("Questions", data);
-      // setQuestions(data);
+      setIsSaved(true);
     } catch (error) {
       navigate("/user-log-in");
       console.error("Error fetching questions:", error);
@@ -175,7 +165,11 @@ export default function GeneralForm() {
         <h1 className="sign-up">
           {location.state ? location.state.infoForm.od : ""} Form
         </h1>
-        {/* {errorMessage && <div className="error">{errorMessage}</div>}  */}
+        {isSaved === true ? (
+          <Alert severity="success">Your answers are saved.</Alert>
+        ) : (
+          ""
+        )}
         <form onSubmit={handleSubmit}>
           <div className="form">
             <div className="register-container-child">
@@ -198,7 +192,7 @@ export default function GeneralForm() {
               endIcon={<SaveIcon />}
               color="primary"
               variant="contained"
-              onClick={saveHiTechQuestions}
+              onClick={saveGeneralQuestions}
             >
               Save Answers
             </Button>

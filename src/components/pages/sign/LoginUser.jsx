@@ -1,16 +1,14 @@
 import React from "react";
-// import '../../../App.css';
 import "./Login.css";
 import Button from "@material-ui/core/Button";
 import LoginIcon from "@material-ui/icons/AccountCircle";
-// import {VisibilityIcon,VisibilityOffIcon} from '@mui/icons-material/Visibility';
 import axios from "axios";
 import Navbar from "../../navbar/Navbar";
 import { useNavigate } from "react-router-dom";
-//import {} from "../../../Reducers/usersReducers';
 import { useEffect, useRef, useState } from "react";
 import { loginAction, logoutAction } from "../../../Redux/usersActions";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Alert from "@mui/material/Alert";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function LogInUser() {
@@ -50,12 +48,6 @@ export default function LogInUser() {
         console.log("general info", res.data.message);
         const infoForm = res.data.message;
         navigate("/generalform", { state: { infoForm } });
-
-        // if (res.data.message === "Health") {
-        //   navigate("/Health");
-        // } else if (res.data.message === "High tech") {
-        //   navigate("/HiTech");
-        // }
       })
       .catch((err) => {
         setErrorMessage(err.response.data);
@@ -69,6 +61,7 @@ export default function LogInUser() {
         <h1 className="sign-in">Login User</h1>
         <form onSubmit={handleSubmit}>
           <div className="form2">
+            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
             <div className="form-group">
               <label for="userID">User ID : </label>
               <input
@@ -95,7 +88,6 @@ export default function LogInUser() {
                 required
               />
             </div>
-            {errorMessage && <div className="error">{errorMessage}</div>}
             <div className="loginbtn">
               <button type="submit" class="btn btn-primary">
                 Sign In

@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+//fetch CSV data from google forms excel file(not relevant in the future get the data from users answers in database)
 export default function FetchCSVData({ setCsvData }) {
   const navigate = useNavigate();
 
@@ -33,5 +34,5 @@ export default function FetchCSVData({ setCsvData }) {
     fetchCSVData();
   }, []);
 
-  return <div></div>;
+  return <></>;
 }

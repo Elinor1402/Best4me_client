@@ -1,26 +1,21 @@
 import React from "react";
-// import '../../../App.css';
 import "./Login.css";
-import Button from "@material-ui/core/Button";
-import LoginIcon from "@material-ui/icons/AccountCircle";
-// import {VisibilityIcon,VisibilityOffIcon} from '@mui/icons-material/Visibility';
 import axios from "axios";
 import Navbar from "../../navbar/Navbar";
 import { useNavigate } from "react-router-dom";
-//import {} from "../../../Reducers/usersReducers';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { loginAction, logoutAction } from "../../../Redux/usersActions";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import Alert from "@mui/material/Alert";
+import { useDispatch } from "react-redux";
 
+//Login page for admin
 export default function LogIn() {
   const [companyID, setCompanyID] = useState("");
   const [companyPassword, setCompanyPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
-
-  const isLogged = useSelector((state) => state.usersReducer.isLogged);
   const dispatch = useDispatch();
 
   const togglePasswordVisiblity = () => {
@@ -44,15 +39,13 @@ export default function LogIn() {
       .then((res) => {
         const userID = localStorage.getItem("userID");
         if (userID) localStorage.removeItem("userID");
-
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("CompanyID", companyID);
         dispatch(loginAction());
-        navigate("/admin", { state: { initialToken: res.data.token } }); // passing token to admin page
+        navigate("/admin");
       })
       .catch((err) => {
         setErrorMessage(err.response.data);
-        console.log(errorMessage);
       });
   }
   return (
@@ -62,6 +55,7 @@ export default function LogIn() {
         <h1 className="sign-in">Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="form2">
+            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
             <div className="form-group">
               <label for="companyID">Comany ID : </label>
               <input
@@ -73,7 +67,6 @@ export default function LogIn() {
                 required
               />
             </div>
-            {/* <i onClick={togglePasswordVisiblity}>{passwordShown ?  <FaEye/>:<FaEyeSlash/>}</i> */}
             <div className="form-group">
               <label for="companyID">Password : </label>
               <i onClick={togglePasswordVisiblity}>
@@ -88,7 +81,6 @@ export default function LogIn() {
                 required
               />
             </div>
-            {errorMessage && <div className="error">{errorMessage}</div>}
             <div className="loginbtn">
               <button type="submit" class="btn btn-primary">
                 Sign In

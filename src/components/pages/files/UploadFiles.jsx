@@ -3,11 +3,15 @@ import "./UploadFiles.css";
 import Sidebar from "../../sidebar/SideBarForAdmin";
 import Topbar from "../../topbar/TopBar";
 import Button from "@material-ui/core/Button";
-import { useNavigate, useLocation } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+//Upload file format csv/xlsx which contains client
 export default function UploadFiles() {
   const [file, setFile] = useState();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSent, setIsSent] = useState(false);
   const navigate = useNavigate();
 
   function handleChange(event) {
@@ -26,8 +30,6 @@ export default function UploadFiles() {
         console.log("get admin");
       })
       .catch((err) => {
-        console.log("errrrrrrr");
-
         navigate("/log-in");
       });
 
@@ -49,9 +51,14 @@ export default function UploadFiles() {
         Authorization: token,
       },
     };
-    axios.post(url, formData, config).then((res) => {
-      window.alert(res.data);
-    });
+    axios
+      .post(url, formData, config)
+      .then((res) => {
+        setIsSent(true);
+      })
+      .catch((err) => {
+        setErrorMessage(err.response.data);
+      });
   }
 
   return (
@@ -60,7 +67,11 @@ export default function UploadFiles() {
       <div className="container">
         <Sidebar />
         <div className="summery">
-          <div className="uploadContainer">
+          <div className="uploadContainer form-group">
+            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+            {isSent && (
+              <Alert severity="success">Emails were send successfully</Alert>
+            )}
             <form onSubmit={handleSubmit}>
               <input
                 className="custom-file-input"
