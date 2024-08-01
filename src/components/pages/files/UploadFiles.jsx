@@ -68,7 +68,11 @@ export default function UploadFiles() {
         <Sidebar />
         <div className="summery">
           <div className="uploadContainer form-group">
-            {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
+            {errorMessage && (
+              <Alert severity="error" className="error">
+                {errorMessage}
+              </Alert>
+            )}
             {isSent && (
               <Alert severity="success">Emails were send successfully</Alert>
             )}

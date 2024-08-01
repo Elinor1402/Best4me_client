@@ -12,6 +12,7 @@ import UploadFiles from "./components/pages/files/UploadFiles";
 import PrivateRoute from "./Redux/PrivateRoute";
 import GeneralForm from "./components/pages/forms/GeneralForm";
 import PersonalForm from "./components/pages/forms/PersonalForm";
+import NotFound from "./components/pages/notfound/NotFound";
 
 //The main component that uses router to navigate through different components
 function App() {
@@ -31,6 +32,8 @@ function App() {
 
         {/* to prevent rendering the page if you not log in */}
         {/* <Route path="/admin" element={<PrivateRoute component={Summery} />} /> */}
+        {/* Catch-all route for 404 Not Found */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
