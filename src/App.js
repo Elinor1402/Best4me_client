@@ -13,10 +13,7 @@ import PrivateRoute from "./Redux/PrivateRoute";
 import GeneralForm from "./components/pages/forms/GeneralForm";
 import PersonalForm from "./components/pages/forms/PersonalForm";
 import NotFound from "./components/pages/notfound/NotFound";
-<<<<<<< HEAD
-=======
-import ForgotPassword from "./components/pages/sign/ForgotPassword"
->>>>>>> 13ddb7597431ffd8e6b0f9e5ce856d3c5d92d159
+import ForgotPassword from "./components/pages/sign/ForgotPassword";
 
 //The main component that uses router to navigate through different components
 function App() {
@@ -33,11 +30,7 @@ function App() {
         <Route path="/user-log-in" element={<LoginUser />} />
         <Route path="/Personal" element={<PersonalForm />} />
         <Route path="/generalform" element={<GeneralForm />} />
-<<<<<<< HEAD
-=======
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
->>>>>>> 13ddb7597431ffd8e6b0f9e5ce856d3c5d92d159
-
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         {/* to prevent rendering the page if you not log in */}
         {/* <Route path="/admin" element={<PrivateRoute component={Summery} />} /> */}
         {/* Catch-all route for 404 Not Found */}
