@@ -2,7 +2,7 @@ import React from "react";
 import "./Login.css";
 import axios from "axios";
 import Navbar from "../../navbar/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { loginAction, logoutAction } from "../../../Redux/usersActions";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -85,6 +85,9 @@ export default function LogIn() {
               <button type="submit" class="btn btn-primary">
                 Sign In
               </button>
+              <Link to="/forgot-password" className="btn btn-primary">
+                Forgot Password
+              </Link>
             </div>
           </div>
         </form>

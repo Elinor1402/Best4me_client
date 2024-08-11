@@ -27,7 +27,7 @@ function HeroSection() {
         </Link>
         <Link to="/log-in">
           <Button
-            className="loginbtn"
+            className="loginbtnH"
             type="button"
             endIcon={<LoginIcon />}
             color="primary"

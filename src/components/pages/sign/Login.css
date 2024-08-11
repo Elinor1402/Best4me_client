@@ -63,3 +63,7 @@ i {
 .css-wnkddu-MuiPaper-root-MuiAlert-root {
   margin-top: 6rem;
 }
+.loginbtn {
+  display: flex;
+  gap: 25em; /* Optional: Adds space between the buttons */
+}
