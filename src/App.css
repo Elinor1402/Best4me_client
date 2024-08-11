@@ -1,0 +1,19 @@
+/* matching the screen for maximize */
+
+.admin {
+  /* background-image: url("../public/images/img-1.webp"); */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #000;
+  font-size: 100px;
+}
+
+.sign-in {
+  background-image: url("./images/img-5.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 100px;
+}

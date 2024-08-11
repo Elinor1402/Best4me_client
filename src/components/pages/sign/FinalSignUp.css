@@ -1,0 +1,19 @@
+.final-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.text-container {
+  flex-direction: row;
+}
+.Card {
+  width: 30%;
+
+  margin-top: 10rem;
+}
+.Typography {
+  font-size: 3.5em;
+}
