@@ -1,15 +1,3 @@
-.hero-container {
-  background: url("../../images/img-home.jpg") center center/cover no-repeat;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: center;
-  align-items: center;
-  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
-  object-fit: contain;
-}
-
 .signupbtn,
 .loginbtnH {
   width: 120px;
@@ -18,44 +6,78 @@
   font-size: 1.2em !important;
 }
 
-.hero-container > h1 {
-  color: #fff;
-  font-size: 100px;
-  margin-top: -100px;
+/* /////////////////////////////// */
+.hero-container{
+  background: url("../../images/home_img.jpg") center center/cover no-repeat; 
+}
+.hero-box {
+  /* background: url("../../images/home_img.jpg") center center/cover no-repeat; */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
 }
 
-.hero-container > p {
-  margin-top: 8px;
-  padding: 20px 20px;
-  color: #fff;
-  font-size: 42px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+.hero-card {
+  min-width: 17.1875rem; /* 275px / 16 = 17.1875rem */
+  text-align: center;
+  padding: 1rem; /* 16px / 16 = 1rem */
 }
 
-@media screen and (max-width: 960px) {
-  .hero-container > h1 {
-    font-size: 70px;
-    margin-top: -150px;
-  }
+.button-container {
+  margin-top: 1rem; /* 16px / 16 = 1rem */
 }
 
-@media screen and (max-width: 768px) {
-  .hero-container > h1 {
-    font-size: 50px;
-    margin-top: -100px;
-  }
+.link {
+  text-decoration: none;
+}
 
-  .hero-container > p {
-    font-size: 30px;
-  }
+.signupbtn {
+  margin-bottom: 1rem; /* 16px / 16 = 1rem */
+}
 
-  .btn-mobile {
-    display: block;
-    text-decoration: none;
-  }
+.headerM {
+  margin-bottom: 1rem !important; /* 16px */
+  font-size: 3.5rem !important; /* Equivalent to h5 in Material-UI */
+  font-weight: bold !important;
+}
 
-  .btn {
-    width: 100%;
-  }
+/* ///////////////////////////////// */
+.carousel-container {
+  width: 100%;
+  /* height: 0.4 rem; */
+ /*max-width: 80rem; /* 1280px
+  margin-bottom: 2rem; /* Space between carousel and card */
+}
+
+.carousel {
+  width: 100%;
+  /* height: 0.4 rem; */
+  /*max-width: 80rem; /* 1280px */
+}
+
+.carousel-item {
+  display: flex;
+  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem; /* 16px / 16 = 1rem */
+  text-align: center;
+  box-sizing: border-box;
+  min-width: calc(100% / 5); /* Show 7 frames at once */
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.carousel-image {
+  width: 18%; /* 5 images, so 18% width each to fit within 90% of the container */
+  /*max-width: 18%; /* Same as width to ensure consistency */
+  height: auto;
+  object-fit: cover;
 }

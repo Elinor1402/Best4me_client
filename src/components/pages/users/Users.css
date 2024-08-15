@@ -1,29 +1,29 @@
 .userList {
-    flex: 4;
-  }
-  
-  .userListUser {
-    display: flex;
-    align-items: center;
-  }
+  flex: 4;
+}
 
-  .container {
-    display: flex;
-    margin-top: 10px;
-    margin-left: 0%;
-    width: 100%;
-  }
-  
-  .link {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  .tableGrid {
-      font-size: 2rem !important;
-  }
-  
-  /* .userListEdit{
+.userListUser {
+  display: flex;
+  align-items: center;
+}
+
+.containerU {
+  display: flex;
+  margin-top: 10px;
+  margin-left: 0%;
+  width: 100%;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tableGrid {
+  font-size: 2rem !important;
+}
+
+/* .userListEdit{
       border: none;
       border-radius: 10px;
       padding: 5px 10px;

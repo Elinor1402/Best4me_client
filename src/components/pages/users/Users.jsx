@@ -101,7 +101,7 @@ export default function UserList() {
   return (
     <>
       <Topbar />
-      <div className="container">
+      <div className="containerU">
         <Sidebar />
         <div className="userList">
           {errorMessage && <Alert severity="error">{errorMessage}</Alert>}

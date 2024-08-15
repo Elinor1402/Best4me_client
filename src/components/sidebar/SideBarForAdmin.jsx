@@ -1,6 +1,7 @@
 import React from "react";
 import "./SideBarForAdmin.css";
-import { LineStyle, PermIdentity, MailOutline } from "@material-ui/icons";
+import { LineStyle, PermIdentity, MailOutline, AssignmentOutlined } from "@material-ui/icons";
+
 import { Link } from "react-router-dom";
 
 //the sidebar in admin
@@ -51,6 +52,17 @@ export default function Sidebar() {
               Messages
             </li>
             </Link> */}
+          </ul>
+        </div>
+        <div className="sidebarMenu">
+          <h3 className="sidebarTitle">Survey</h3>
+          <ul className="sidebarList">
+            <Link to="/users" className="link">
+              <li className="sidebarListItem">
+                <AssignmentOutlined className="sidebarIcon" />
+                Questions
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

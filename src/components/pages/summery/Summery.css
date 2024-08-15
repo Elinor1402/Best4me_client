@@ -4,7 +4,7 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
-.container {
+.containerS {
   display: flex;
   margin-top: 10px;
   margin-left: 0%;

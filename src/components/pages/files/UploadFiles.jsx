@@ -64,7 +64,7 @@ export default function UploadFiles() {
   return (
     <>
       <Topbar />
-      <div className="container">
+      <div className="containerF">
         <Sidebar />
         <div className="summery">
           <div className="uploadContainer form-group">
