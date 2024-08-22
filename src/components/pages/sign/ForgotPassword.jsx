@@ -50,8 +50,8 @@ const ForgotPassword = () => {
       {step === 1 && (
         <Card>
           <CardContent>
-            <Box className="container">
-              <Typography component="h1" variant="h5" className="header">
+            <Box className="forgot-container">
+              <Typography component="h1" variant="h5" className="forgot-header">
                 Forgot Password
               </Typography>
               <Typography variant="body2" className="body-text">
@@ -61,7 +61,7 @@ const ForgotPassword = () => {
                 component="form"
                 onSubmit={sendCode}
                 noValidate
-                className="form"
+                className="forgot-form"
               >
                 <TextField
                   margin="normal"

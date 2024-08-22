@@ -14,9 +14,8 @@
   /* background: url("../../images/home_img.jpg") center center/cover no-repeat; */
   height: 100vh;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
-
   flex-direction: column;
 }
 
@@ -24,6 +23,7 @@
   min-width: 17.1875rem; /* 275px / 16 = 17.1875rem */
   text-align: center;
   padding: 1rem; /* 16px / 16 = 1rem */
+  margin-top: 15rem;
 }
 
 .button-container {
@@ -40,7 +40,7 @@
 
 .headerM {
   margin-bottom: 1rem !important; /* 16px */
-  font-size: 3.5rem !important; /* Equivalent to h5 in Material-UI */
+  font-size: 2.5rem !important; /* Equivalent to h5 in Material-UI */
   font-weight: bold !important;
 }
 

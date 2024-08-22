@@ -1,69 +1,64 @@
-/* matching the screen for maximize */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "PT Sans", sans-serif;
+:root {
+  font-size: 16px; /* Base font size */
 }
 
-.sign-in {
-  /* background-image: url("/../../../public/images/img-5.jpg"); */
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-}
-
-/* sign-up css */
 .login-container {
-  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
 }
-/* sign-up css */
-.form2 {
-  width: 50rem;
-  margin-top: 10em;
+
+.login-paper {
+  padding: 2rem; /* 32px converted to rem */
+  border-radius: 1rem; /* 16px converted to rem */
+  background-color: #fff;
+}
+
+.login-title {
+  font-size: 2rem; /* 32px converted to rem */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem; /* 24px converted to rem */
+}
+
+.login-form {
   display: flex;
   flex-direction: column;
-}
-/* .form2::form-group2 {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: fit-content;
-  } */
-/* sign-up css */
-
-input[type="date"] {
-  color: rgb(117, 109, 109);
-}
-input:hover {
-  background-color: white;
-  box-shadow: 0px 0px 14px 0.3px;
+  gap: 1rem; /* 16px converted to rem */
 }
 
-input:focus {
-  outline: none;
-  background-color: rgb(238, 238, 238);
-  border: 1.5px solid rgb(99, 99, 240);
-  box-shadow: 0px 0px 12px 0.8px;
-}
-i {
-  font-size: 1.75rem;
-  padding-left: 0.5em;
+.login-input {
+  width: 100%;
 }
 
-.css-1pxa9xg-MuiAlert-message {
-  font-size: 2rem;
+.login-button {
+  width: 100%;
+  margin-top: 1rem; /* 16px converted to rem */
 }
-.css-wnkddu-MuiPaper-root-MuiAlert-root {
-  margin-top: 6rem;
-}
-.loginbtn {
+
+.login-links {
   display: flex;
-  gap: 25em; /* Optional: Adds space between the buttons */
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem; /* 16px converted to rem */
+  font-size: 0.875rem; /* 14px converted to rem */
+}
+
+.login-link {
+  color: #3f51b5;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.alert {
+  margin-bottom: 1rem; /* 16px converted to rem */
+}
+/* New style to add space between the Sign Up and Forgot Password buttons */
+.login-link + .login-link {
+  margin-left: 1rem; /* Adjust this value for more or less space */
 }
