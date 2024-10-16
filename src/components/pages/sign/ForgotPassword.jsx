@@ -9,6 +9,7 @@ import {
   Button,
   Link,
   Card,
+  Alert,
   CardContent,
   Checkbox,
   FormControlLabel,
@@ -21,6 +22,9 @@ const ForgotPassword = () => {
   const [newPassword, setNewPassword] = useState(""); // State for new password
   const [confirmPassword, setConfirmPassword] = useState(""); // State for confirm password
   const [acceptTerms, setAcceptTerms] = useState(false); // State for accepting terms
+  const [code, setCode] = useState(Array(6).fill("")); // State for the 6-digit verification code
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleNext = () => {
     if (step < 3) setStep(step + 1);
@@ -32,24 +36,57 @@ const ForgotPassword = () => {
 
   const sendCode = async (event) => {
     event.preventDefault();
+      // Reference the form
+    const form = event.target;
+
+    // Check if the form is valid
+    if (!form.checkValidity()) {
+      form.reportValidity();  // This will trigger the browser to show validation errors
+      return;
+      }
+
     try {
-      await axios.post('http://localhost:3000/send-code', { email });
-      alert('Verification code sent to your email');
-  } catch (err) {
+      const response= await axios.post('http://localhost:3000/send-code', { email });
+      setErrorMessage("");
+      // setSuccessMessage(response.data);
+      handleNext();
+    } catch (err) {
+      setErrorMessage(err.response.data);
       console.error(err.response.data);
-  }
-    handleNext();
-    // Handle the form submission
+    }
   };
 
-  const varAccount = (event) => {
+  const varAccount = async (event) => {
     event.preventDefault();
-    handleNext();
-    // Handle the form submission
+    const fullCode = code.join(""); // Combine the 6 individual code digits into a single string
+    try {
+      await axios.post('http://localhost:3000/verify-code', { email, code: fullCode });
+      setErrorMessage("");
+      handleNext();
+    } catch (err) {
+      setErrorMessage(err.response.data);
+      console.error(err.response.data);
+    }
   };
 
-  const ResetPassword = (event) => {
+  const handleCodeChange = (index, value) => {
+    // Update the specific digit in the code array
+    const newCode = [...code];
+    newCode[index] = value;
+    setCode(newCode);
+  };
+
+  const ResetPassword = async (event) => {
     event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:3000/reset-pass', { email, newPassword });
+      setSuccessMessage(response.data);
+      console.log("Message", response);
+      handleNext();
+    } catch (err) {
+      setErrorMessage(err.response.data);
+      console.error(err.response.data);
+    }
   };
 
   return (
@@ -70,24 +107,25 @@ const ForgotPassword = () => {
                 noValidate
                 className="forgot-form"
               >
+                 { errorMessage && <Alert severity="error" className="alert">{errorMessage}</Alert>}
+             
                 <TextField
                   margin="normal"
-                  required
                   fullWidth
                   id="email"
                   label="Email"
                   name="email"
                   autoComplete="email"
                   autoFocus
-                  value={email} // Bind the value to the state
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)} // Update state on change
+                  required
                 />
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   className="submit-button"
-                  // onClick={sendCode}
                 >
                   Reset Password
                 </Button>
@@ -113,27 +151,19 @@ const ForgotPassword = () => {
             <Typography variant="body2" className="body-text">
               We have sent a code to your email {email}
             </Typography>
+            {errorMessage && <Alert severity="error" className="alert">{errorMessage}</Alert>}
             <Box display="flex" justifyContent="center" className="otp-box">
-              <TextField
-                variant="outlined"
-                inputProps={{ maxLength: 1 }}
-                className="otp-input"
-              />
-              <TextField
-                variant="outlined"
-                inputProps={{ maxLength: 1 }}
-                className="otp-input"
-              />
-              <TextField
-                variant="outlined"
-                inputProps={{ maxLength: 1 }}
-                className="otp-input"
-              />
-              <TextField
-                variant="outlined"
-                inputProps={{ maxLength: 1 }}
-                className="otp-input"
-              />
+              {[...Array(6)].map((_, index) => (
+                <TextField
+                  key={index}
+                  variant="outlined"
+                  inputProps={{ maxLength: 1 }}
+                  className="otp-input"
+                  value={code[index]}
+                  onChange={(e) => handleCodeChange(index, e.target.value)} // Update specific digit
+                  required
+                  />
+              ))}
             </Box>
             <Button
               onClick={varAccount}
@@ -185,6 +215,7 @@ const ForgotPassword = () => {
               }
               label="I accept the Terms and Conditions"
             />
+             { successMessage && <Alert severity="success" className="alert">{successMessage}</Alert>}
             <Button
               onClick={ResetPassword}
               variant="contained"
